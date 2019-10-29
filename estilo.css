@@ -1,0 +1,24 @@
+body{
+    background: rgb(133, 133, 226);
+    font: normal 15pt Times;
+}
+header{
+    color: white;
+    text-align: center;
+}
+section{
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 640px; 
+    margin: auto;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.719);
+}
+div{
+    font: normal 15px Arial;
+    text-align: left;
+}
+input{
+    font: normal 10pt Times;
+    width: 200px;
+}

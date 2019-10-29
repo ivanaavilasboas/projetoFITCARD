@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header>
+        <h1>Cadastro de dados de estabelecimento</h1>
+    </header>
+    <section>
+        <div>
+            <p>Para realizar o cadastro do seu estabelecimento, por favor insira os dados nos campos abaixo:</p>
+            <p>Obs: As informações com * são obrigatórias.</p>
+        </div>
+        <div>
+            <p>
+                Razão Social*: <input type="String" name="txtrazao" id="txtrazao">
+                Nome Fantasia: <input type="String" name="txtnome" id="txtnome">
+            </p>
+            <p>
+                CNPJ*: <input type="string" name="txtcnpj" id="txtcnpj" placeholder="xx.xxx.xxx/yyyy-zz"> 
+                E-mail: <input type="email" name="txtmail" id="txtmail" placeholder="nome@email.com">
+            </p>
+            <p>
+                Endereço: <input type="String" name="txtend" id="txtend">
+                Cidade: <input type="String" name="txtcidade" id="txtcidade">
+            </p>
+            <p>
+                Estado: <input type="String" name="txtestado" id="txtestado">
+                Telefone: <input type="tel" name="txttel" id="txttel" placeholder="(xx)xxxx-xxxx">
+            </p>
+            <p>
+                Data de Cadastro: <input type="date" name="txtdata" id="txtdata">
+                Categoria: <input type="String" name="txtcat" id="txtcat">
+            </p>
+            <p>Status: 
+                    <input type="radio" name="radstatus" id="ativo" checked>
+                    <label for="ativo">Ativo</label>
+                    <input type="radio" name="radstatus" id="inativo">
+                    <label for="inativo">Inativo</label>
+            </p>
+
+            </p>
+            <p>
+                Agência: <input type="string" name="txtag" id="txtag" placeholder="xxx-x" >
+                Conta: <input type="string" name="txtconta" id="txtconta" placeholder="xx.xxx-x">
+            </p>
+
+            <input type="button" value="Salvar Novo" onclick="salvar()">
+            <input type="button" value="Buscar por CNPJ" onclick="buscar()">
+            <p><input type="button" value="Salvar Edição" onclick="atualizar()">
+            <input type="button" value="Deletar Busca" onclick="deletar()"></p>
+        </div>
+        <div id="res">
+            
+        </div>
+    </section>
+    <script src="index.js"></script>
+</body>
+</html>
