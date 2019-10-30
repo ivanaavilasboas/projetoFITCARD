@@ -15,10 +15,6 @@ var con = {
 
 
 
-
-
-
-
 //false - invalido
 //true - valido
 function validaCNPJ(cnpj) {
@@ -124,7 +120,7 @@ function salvar() {
             res.innerHTML += `<p>Agência: ${agencia.value} </p>`
             res.innerHTML += `<p>Conta: ${conta.value} </p>`
 
-            
+
             var connection = mysql.createConnection(con);
             connection.connect();
 
@@ -139,7 +135,7 @@ function salvar() {
                 "', " +
                 email.value +
                 "', " +
-                endereco.value +
+                end.value +
                 "', " +
                 cidade.value +
                 "', " +
@@ -147,7 +143,7 @@ function salvar() {
                 "', " +
                 tel.value +
                 "', " +
-                dia.value +
+                data.value +
                 "', " +
                 categoria.value +
                 "', " +
@@ -160,13 +156,13 @@ function salvar() {
 
             console.log(strQuery);
 
-    
+
             connection.query(strQuery, function (err, rows, fields) {
                 if (!err) {
                     //Se não houver erros
                     res.json(rows); //Retornamos as linhas
                 } else {
-                    //Caso contrário
+
                     res.json(err); //Retornamos dados sobre o erro
                 }
             });
@@ -186,45 +182,57 @@ function salvar() {
 
 
 
-function atualizar(req, res, next) {
+function atualizar() {
     //Definindo o formato da response
+
     res.setHeader("content-type", "application/json");
     res.charSet("UTF-8");
 
     var connection = mysql.createConnection(con);
     connection.connect();
 
-    var strQuery =
-        "UPDATE info SET razao = '" +
-        razao.value +
-        "', nomef = " +
-        nomef.value +
-        ", email = '" +
-        email.value +
-        "', endereco = " +
-        endereco.value +
-        "', cidade = " +
-        cidade.value +
-        "', estado = " +
-        estado.value +
-        "', tel = " +
-        tel.value +
-        "', dia = " +
-        dia.value +
-        "', categoria = " +
-        categoria.value +
-        "', stat = " +
-        stat.value +
-        "', agencia = " +
-        agencia.value +
-        "', conta = " +
-        conta.value +
-        "'" +
-        " WHERE cnpj = " +
-        cnpj.value +
-        ";";
+    var strQuery = "UPDATE info SET ";
 
-    
+        if (razao.value != "") {
+            strQuery += "razao = '" + razao.value + "',";
+        }
+        if (nomef.value != "") {
+            strQuery += "nomef = " + nomef.value + "',";
+        }
+        if (email.value != "") {
+            strQuery += "email = '" + email.value + "',";
+        }
+        if (end.value != "") {
+            strQuery += "endereco = '" + end.value + "',";
+        }
+        if (cidade.value != "") {
+            strQuery += "cidade = '" + cidade.value + "',";
+        }
+        if (estado.value != "") {
+            strQuery += "estado = '" + estado.value + "',";
+        }
+        if (tel.value != "") {
+            strQuery += "tel = '" + tel.value + "',";
+        }
+        if (data.value != "") {
+            strQuery += "dia = " + data.value + "',";
+        }
+        if (categoria.value != "") {
+            strQuery += "categoria = '" + categoria.value + "',";
+        }
+        if (stat.value != "") {
+            strQuery += "stat = '" + stat.value + "',";
+        }
+        if (agencia.value != "") {
+            strQuery += "agencia = '" + agencia.value + "',";
+        }
+        if (conta.value != "") {
+            strQuery += "conta = '" + conta.value + "',";
+        }
+        strQuery = strQuery.slice(0, -1);
+        strQuery += " WHERE cnpj = " + cnpj.value + ";";
+
+
     console.log(strQuery);
 
     connection.query(strQuery, function (err, rows, fields) {
@@ -242,33 +250,45 @@ function atualizar(req, res, next) {
 }
 
 function buscar() {
-    
+
     res.setHeader("content-type", "application/json");
     res.charSet("UTF-8");
-  
+
     var connection = mysql.createConnection(con);
     connection.connect();
-  
-    var strQuery = "SELECT * FROM info; WHERE cnpj =" + cnpj.value;
-  
-  
-    console.log(strQuery);
-  
-    
-    connection.query(strQuery, function(err, rows, fields) {
-      if (!err) {
-        //Se não houver erros
-        res.json(rows); //Retornamos as linhas
 
-      } else {
-        //Caso contrário
-        res.json(err); //Retornamos dados sobre o erro
-      }
+    var strQuery = "SELECT * FROM info; WHERE cnpj =" + cnpj.value;
+
+
+    console.log(strQuery);
+
+
+    connection.query(strQuery, function (err, rows, fields) {
+        if (!err) {
+            //Se não houver erros
+            res.json(rows); //Retornamos as linhas
+            res.innerHTML = `Razão Social*: ${razao.value}`
+            res.innerHTML += `<p>Nome Fantasia: ${nomef.value} </p>`
+            res.innerHTML += `<p>CNPJ*: ${cnpj.value} </p>`
+            res.innerHTML += `<p>E-mail: ${email.value} </p>`
+            res.innerHTML += `<p>Endereço: ${end.value} </p>`
+            res.innerHTML += `<p>Cidade: ${cidade.value} </p>`
+            res.innerHTML += `<p>Estado: ${estado.value} </p>`
+            res.innerHTML += `<p>Telefone: ${tel.value} </p>`
+            res.innerHTML += `<p>Data de Cadastro: ${data.value} </p>`
+            res.innerHTML += `<p>Categoria: ${categoria.value} </p>`
+            res.innerHTML += `<p>Status: ${status} </p>`
+            res.innerHTML += `<p>Agência: ${agencia.value} </p>`
+            res.innerHTML += `<p>Conta: ${conta.value} </p>`
+        } else {
+            //Caso contrário
+            res.json(err); //Retornamos dados sobre o erro
+        }
     });
 
 
     connection.end();
-  }
+}
 
 
 
@@ -277,28 +297,28 @@ function deletar() {
     res.setHeader("content-type", "application/json");
     res.charSet("UTF-8");
 
-  
+
 
     var connection = mysql.createConnection(con);
     connection.connect();
 
     var strQuery = "DELETE FROM info WHERE cnpj = " + cnpj + ";";
-  
-   
+
+
     console.log(strQuery);
-  
 
-    connection.query(strQuery, function(err, rows, fields) {
-      if (!err) {
-        //Se não houver erros
-        res.json(rows); //Retornamos as linhas
-      } else {
-        //Caso contrário
-        res.json(err); //Retornamos dados sobre o erro
-      }
+
+    connection.query(strQuery, function (err, rows, fields) {
+        if (!err) {
+            //Se não houver erros
+            res.json(rows); //Retornamos as linhas
+        } else {
+            //Caso contrário
+            res.json(err); //Retornamos dados sobre o erro
+        }
     });
-  
-    connection.end();
-  
 
-  }
+    connection.end();
+
+
+}
